@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "graphql-generate": "graphql-codegen",
+    "prisma-generate": "prisma generate"
   },
   "dependencies": {
     "@pothos/core": "^4.1.0",

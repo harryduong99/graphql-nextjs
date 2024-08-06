@@ -1,23 +1,12 @@
 "use client";
 
-import { Link } from "@prisma/client";
 import { useQuery } from "@urql/next";
 import Head from "next/head";
-import { gql } from "urql";
+import { GetLinksDocument } from "../client/gql/graphql";
 
-const LinkQuery = gql`
-  query {
-    links {
-      id
-      title
-      description
-      url
-    }
-  }
-`;
 
 export default function Home() {
-  const [{ data, fetching }] = useQuery({ query: LinkQuery });
+  const [{ data, fetching }] = useQuery({ query: GetLinksDocument });
 
   return (
     <div>
@@ -28,7 +17,7 @@ export default function Home() {
 
       <div className="container mx-auto max-w-5xl my-20">
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {data?.links.map((link: Link) => (
+          {data?.links?.map((link: any) => (
             <li key={link.id} className="shadow  max-w-md  rounded">
               <img className="shadow-sm" src={link.imageUrl} />
               <div className="p-5 flex flex-col space-y-2">
