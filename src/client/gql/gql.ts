@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "query GetLinks {\n  links {\n    id\n    title\n    description\n    url\n  }\n}": types.GetLinksDocument,
+    "mutation UpdateUserRole($userId: String!, $role: Role!) {\n  updateUserRole(userId: $userId, role: $role) {\n    email\n    id\n    image\n    role\n  }\n}": types.UpdateUserRoleDocument,
 };
 
 /**
@@ -34,6 +35,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query GetLinks {\n  links {\n    id\n    title\n    description\n    url\n  }\n}"): (typeof documents)["query GetLinks {\n  links {\n    id\n    title\n    description\n    url\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UpdateUserRole($userId: String!, $role: Role!) {\n  updateUserRole(userId: $userId, role: $role) {\n    email\n    id\n    image\n    role\n  }\n}"): (typeof documents)["mutation UpdateUserRole($userId: String!, $role: Role!) {\n  updateUserRole(userId: $userId, role: $role) {\n    email\n    id\n    image\n    role\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
