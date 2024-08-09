@@ -19,3 +19,4 @@ builder.queryType({
     }),
   }),
 });
+builder.mutationType({});

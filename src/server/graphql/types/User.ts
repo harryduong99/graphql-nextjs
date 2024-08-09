@@ -13,3 +13,32 @@ builder.prismaObject("User", {
 const Role = builder.enumType("Role", {
   values: ["USER", "ADMIN"] as const,
 });
+
+builder.mutationField("updateUserRole", (t) =>
+  t.prismaField({
+    type: "User",
+    args: {
+      userId: t.arg.string({ required: true }),
+      role: t.arg({ type: Role, required: true }),
+    },
+    resolve: async (query, _parent, args, ctx) => {
+      return prisma.user.update({
+        where: { id: args.userId },
+        data: {
+          role: args.role,
+        },
+      });
+    },
+  })
+);
+
+/**
+ * mutation UpdateUserRole($userId: String!, $role: Role!) {
+    updateUserRole(role: $role, userId: $userId) {
+        email
+        id
+        image
+        role
+    }
+}
+ */

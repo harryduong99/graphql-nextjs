@@ -19,3 +19,30 @@ builder.queryField("links", (t) =>
       prisma.link.findMany({ ...query }),
   })
 );
+
+builder.mutationField("createLink", (t) =>
+  t.prismaField({
+    type: "Link",
+    args: {
+      title: t.arg.string({ required: true }),
+      description: t.arg.string({ required: true }),
+      url: t.arg.string({ required: true }),
+      imageUrl: t.arg.string({ required: true }),
+      category: t.arg.string({ required: true }),
+    },
+    resolve: async (query, _parent, args, ctx) => {
+      const { title, description, url, imageUrl, category } = args;
+
+      return prisma.link.create({
+        ...query,
+        data: {
+          title,
+          description,
+          url,
+          imageUrl,
+          category,
+        },
+      });
+    },
+  })
+);
